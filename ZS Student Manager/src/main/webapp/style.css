@@ -1,0 +1,143 @@
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+   /* background-color: #f4f4f9;
+    */
+    background-color:aliceblue;
+    color: #333;
+}
+
+h1 ,h2 {
+    text-align: center;
+    margin: 20px 0;
+}
+
+/*Home Page */
+.home-page {
+    
+ 
+   display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+   
+}
+
+.home-page input[type="button"] {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.home-page input[type="button"]:hover {
+    background-color: #0056b3;
+}
+
+/* Add Student Page */
+.add-student-page {
+    display: none; /* Initially hidden */
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.add-student-page div {
+    margin-bottom: 15px;
+}
+
+.add-student-page input[type="text"],
+.add-student-page input[type="number"],
+.add-student-page input[type="email"],
+.add-student-page input[type="date"] {
+    width: 95%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.add-student-page input[type="radio"] {
+    margin: 0 10px 0 5px;
+}
+
+button{
+	padding: 10px 20px;
+	background-color:  #28a745;
+}
+.add-student-page button , #view-student-back-btn{
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.add-student-page button #back-btn {
+    background-color: #dc3545;
+}
+
+.add-student-page button:hover {
+    opacity: 0.9;
+}
+
+/* View Student Page */
+.view-student-page {
+    display: none; 
+    padding: 20px;
+    background-color: #fff;
+    margin: 20px auto;
+    max-width: 90%;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.view-student-page table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.view-student-page th,
+.view-student-page td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+.view-student-page th {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+}
+
+.view-student-page tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.view-student-page tr:hover {
+    background-color: #f1f1f1;
+}
+
+
+
+.hidden {
+    display: none;
+}
+.flex-container {
+    display: flex;
+}
+.block-container{
+	display: block;
+}

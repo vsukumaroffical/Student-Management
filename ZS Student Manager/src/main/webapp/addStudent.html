@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Student</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	
+<form action="">
+    <input type="text" placeholder="First name" id="first-name"> <br>
+    <input type="text" placeholder="Last name" id="last-name"> <br>
+    <label for="date-of-birth">Date of Birth:</label>
+    <input type="date" id="date-of-birth"> <br>
+    <label for="gender">Gender:</label>
+    <input type="radio" name="gender" value="Male" id="male">
+    <label for="male">Male</label>
+    <input type="radio" name="gender" value="Female" id="female">
+    <label for="female">Female</label> <br>
+    <input type="number" placeholder="Mobile Number" id = "mobile-number">
+    <input type="email" placeholder="Email ID" id="email-id"> <br>
+    <input type="text" placeholder="Department" id="department"> <br>
+    <input type="number" placeholder="Year of Passout" id="year-of-passout"> <br>
+    <input type="text" placeholder="Location" id="location"> <br>
+    <input type="button" value="Add" onclick="add()"> 
+    <input type="button" value="Back">
+    
+    
+    <button  id = "showStudent">SHOW</button>
+    <h1>Student List</h1>
+    <table  style="border: 1px solid black; border-collapse:collapse;">
+       <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Date of Birth</th>
+                <th>Gender</th>
+                <th>Mobile Number</th>
+                <th>Email ID</th>
+               
+                <th>Department</th>
+                <th>Year of Passout</th>
+                 <th>Location</th>
+            </tr>
+        </thead>
+        <tbody id = 'dynRow' >
+            <!-- JSON data will populate rows here -->
+        </tbody>
+    </table>
+</form>
+
+<script>
+	
+    function add() {
+        const firstName = document.getElementById("first-name").value;
+        const lastName = document.getElementById("last-name").value;
+        const dateOfBirth = document.getElementById("date-of-birth").value;
+        const gender = document.querySelector('input[name="gender"]:checked')?.value || "Not selected";
+        const mobileNumber = document.getElementById("mobile-number").value;
+        const emailId = document.getElementById("email-id").value;
+        const department = document.getElementById("department").value;
+        const yearOfPassout = document.getElementById("year-of-passout").value;
+        const location = document.getElementById("location").value;
+
+        const fromData ={
+            firstName: firstName,
+            lastName: lastName,
+            dateOfBirth: dateOfBirth,
+            gender: gender,
+            mobileNumber:mobileNumber,
+            emailId: emailId,
+            department: department,
+            yearOfPassout: yearOfPassout,
+            location: location,
+        };
+        const jsonStr = JSON.stringify(fromData);
+        console.log(jsonStr);
+        fetch("addZSStudentServlet",{
+			method : 'POST',
+			headers :{
+				'Content-Type':'application/json'
+			},
+			body:jsonStr
+		}).then(response =>{
+			if(!response.ok) {
+				throw new Error("Network response was not ok");
+			}
+			return response.json();
+		}).then(data => {
+			alert("added successfully");
+		}).catch(error =>{
+			alert("Added failed");
+		});
+    }
+    
+    document.getElementById("showStudent").addEventListener('click',show);
+    
+	function show(event){
+		let content = '';
+		event.preventDefault(); 
+		const list = fetch("getZSStudentList");
+		
+		list.then(response =>{
+			
+			if(!response.ok){
+				throw new Error("Response not ok");
+			}
+			return response.json();
+		})
+		.then(data => {
+			if (Array.isArray(data) && data.length > 0) {
+                data.forEach(student => {
+                    content += `<tr style = "padding : 10px">
+                        <td>${student.firstName}</td>
+                        <td>${student.lastName}</td>
+                        <td>${student.dateOfBirth}</td>
+                        <td>${student.gender}</td>
+                        <td>${student.mobileNumber}</td>
+                        <td>${student.emailID}</td>
+                        <td>${student.department}</td>
+                        <td>${student.yearOfPassout}</td>
+                    	<td>${student.location}</td>
+                    </tr>`;
+                });
+            } else {
+                
+                content = `<tr><td colspan="8">No students found</td></tr>`;
+            }
+        }).then(()=>{
+			document.getElementById('dynRow').innerHTML = content;
+			console.log(content);
+		})
+		.catch(error => {
+			alert(error);
+		})
+		
+		//console.log(list);
+	}
+	</script>
+</body>
+</html>
